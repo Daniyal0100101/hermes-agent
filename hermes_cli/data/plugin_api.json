@@ -270,6 +270,12 @@
         "hermes_cli.profiles_run_elsewhere:clear_profile_run_elsewhere",
         "hermes_cli.profiles_run_elsewhere:run_elsewhere"
       ]
+    },
+    {
+      "source": "developer-guide/regex.md § Regular expressions (plugins too): `import hermes_re as re`",
+      "entries": [
+        "hermes_re"
+      ]
     }
   ]
 }
