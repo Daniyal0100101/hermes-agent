@@ -21,7 +21,7 @@ hooks:
 
 def _doctor(monkeypatch, capsys):
     from hermes_cli import doctor
-    from hermes_cli.doctor_regex import _check_user_regex_settings
+    from hermes_cli.doctor_config import _check_user_regex_settings
     from hermes_cli.main import cmd_doctor
 
     monkeypatch.setattr(doctor, "DOCTOR_CHECKS", (("Regex Settings", _check_user_regex_settings),))
@@ -130,7 +130,7 @@ def test_an_outbound_webhook_is_named_by_its_index_never_by_any_part_of_its_url(
 def test_a_setting_set_in_both_places_is_checked_where_its_adapter_reads_it(monkeypatch, label, key, env,
                                                                              adapter_reads):
     """The shadowed value never runs, so a refused pattern there must not fail doctor."""
-    from hermes_cli.doctor_regex import SETTINGS, Inputs
+    from hermes_cli.doctor_config import SETTINGS, Inputs
 
     monkeypatch.setenv(env, "from-env(")
     platform = label.split()[0].lower()
@@ -184,7 +184,7 @@ def test_an_installed_engine_that_fails_to_import_is_reported_with_its_cause(mon
 def test_a_mention_pattern_is_checked_as_the_text_its_adapter_compiles(platform, adapter_compiles):
     """Trimming changes the verdict: RE2 accepts a lookahead only at the end of the pattern."""
     import hermes_re
-    from hermes_cli.doctor_regex import SETTINGS, Inputs
+    from hermes_cli.doctor_config import SETTINGS, Inputs
 
     setting = next(s for s in SETTINGS if s.label == f"{platform} mention patterns")
     found = [pattern for _where, pattern in setting.read(Inputs(extras={platform: {
